@@ -4,68 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#111111">
-<title>SAI KIRANA STORE — Exact Receipt Maker</title>
+<title>SAI KIRANA STORE — Thermal Receipt Maker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:wght@400;500;700&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root{--accent:#2563eb;--ink:#111;--paper:#fff;--appbg:#f1f3f6}
 *{box-sizing:border-box}body{margin:0;background:var(--appbg);color:#17191c;font-family:Arial,sans-serif}
-.topbar{background:#111;color:#fff;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-weight:800}.brand small{display:block;font-size:12px;color:#cbd0d8;font-weight:400;margin-top:4px}
+.topbar{background:#111;color:#fff;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:800}.brand small{display:block;font-size:12px;color:#cbd0d8;font-weight:400;margin-top:4px}
 .app{max-width:1250px;margin:20px auto;padding:0 14px;display:grid;grid-template-columns:minmax(275px,360px) minmax(0,1fr);gap:18px;align-items:start}
-.panel,.preview{border-radius:14px;background:#fff;box-shadow:0 4px 22px #0000000c;border:1px solid #e3e6ea}
-.panel{padding:18px}.panel h1{font-size:21px;margin:0 0 7px}.hint{font-size:13px;line-height:1.5;color:#5f6670;margin-bottom:15px}
-label{display:block;font-size:12px;font-weight:700;margin:11px 0 6px}
-input{width:100%;min-height:39px;padding:9px 10px;border:1px solid #cbd0d7;border-radius:8px;background:#fff;color:#111;font:14px Arial}
-input:focus{outline:2px solid #bfccff;border-color:#6b83ef}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn{border:0;border-radius:8px;min-height:40px;padding:10px 12px;font-size:13px;font-weight:700;cursor:pointer}
-.primary{background:var(--accent);color:#fff;width:100%;margin-top:10px}.secondary{background:#eceff3;color:#17191c}.actions{display:flex;gap:8px;margin-top:12px}.actions .btn{flex:1}
-.products-title{font-size:15px;margin:17px 0 5px;padding-top:13px;border-top:1px solid #e4e7eb}
-.product-card{border:1px solid #e0e4e9;border-radius:10px;padding:10px;margin:9px 0}.product-top{display:flex;justify-content:space-between;align-items:center}.product-top b{font-size:12px}.remove{min-height:30px;padding:5px 9px;font-size:12px}
-.smallnote{font-size:11px;color:#606873;line-height:1.5;margin:12px 0 0}
-.preview{background:#e5e8ed;padding:16px;min-width:0;display:flex;flex-direction:column;align-items:center}
-.preview-head{width:min(100%,420px);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:11px;font-weight:800;color:#434a54}
-.paper-select{border:1px solid #c8cdd5;background:#fff;border-radius:7px;padding:7px;font-size:12px}
-.color-tools{width:min(100%,420px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px;background:#fff;border-radius:10px;margin-bottom:12px}
-.color-tools label{font-size:10px;margin:0 0 5px}.color-tools input[type=color]{height:32px;min-height:32px;padding:2px;cursor:pointer}
-.receipt{width:min(100%,var(--preview-width,390px));background:var(--paper);color:var(--ink);padding:22px 18px;font-family:"Roboto Mono","Courier New",monospace;box-shadow:0 5px 22px #0002;overflow-wrap:anywhere}
-.shop{font-family:"Anton","Arial Narrow",sans-serif;font-size:35px;font-weight:400;letter-spacing:.2px;line-height:1.05;text-align:center;text-transform:uppercase;margin:0 0 12px;overflow-wrap:anywhere}
-.dash{border:0;border-top:2px dashed currentColor;margin:10px 0}
-.metadata{font-family:"Roboto Mono","Courier New",monospace;font-size:13px;font-weight:700;line-height:1.48}
-.meta-line{display:flex;gap:8px;align-items:baseline;white-space:nowrap}
-.meta-line .label{width:84px;flex:0 0 84px}
-.meta-line .value{flex:1;min-width:0}
-.meta-bottom{display:flex;justify-content:space-between;gap:8px;align-items:baseline;white-space:nowrap}
-.table-wrap{width:100%}
-table{width:100%;table-layout:fixed;border-collapse:collapse;font-family:"Roboto Mono","Courier New",monospace;font-size:11px;font-weight:700}
-th{text-align:left;border-bottom:2px dashed currentColor;padding:6px 1px 7px;white-space:nowrap}
-td{padding:6px 1px;vertical-align:top;overflow-wrap:anywhere}
-th:nth-child(1),td:nth-child(1){width:7%}
-th:nth-child(2),td:nth-child(2){width:30%;padding-left:3px}
-th:nth-child(3),td:nth-child(3){width:12%;text-align:right}
-th:nth-child(4),td:nth-child(4){width:22%;text-align:right}
-th:nth-child(5),td:nth-child(5){width:29%;text-align:right}
-.totals{font-size:13px;font-weight:700;line-height:1.45}
-.total-line{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin:4px 0}
-.total-line span:last-child{text-align:right;white-space:nowrap}
-.grand{font-family:"Roboto Condensed",Arial,sans-serif;font-size:25px;font-weight:900;line-height:1.05;margin-top:10px;gap:5px}
-.grand span:first-child{white-space:nowrap}
-.thanks{font-family:"Roboto Mono","Courier New",monospace;font-size:21px;font-weight:700;line-height:1.5;text-align:center;text-transform:uppercase;margin:13px 0 8px}
-.tagline{font-family:"Roboto Mono","Courier New",monospace;font-size:12px;font-weight:700;line-height:1.4;text-align:center;margin-top:8px;white-space:nowrap}
-.footer-note{font-size:11px;color:#5f6670;text-align:center;margin-top:10px}
-[contenteditable=true]:focus{outline:1px dashed #888;outline-offset:2px}
-@media(max-width:800px){.app{grid-template-columns:1fr;max-width:600px;margin:10px auto;padding:0 9px}.preview{order:1;padding:10px}.panel{order:2;padding:15px}.topbar{padding:14px}.shop{font-size:31px}}
-@media(max-width:380px){.receipt{padding:17px 10px}.shop{font-size:27px}.metadata{font-size:11px}.meta-line .label{width:70px;flex-basis:70px}table{font-size:9px}.totals{font-size:11px}.grand{font-size:21px}.thanks{font-size:18px}.tagline{font-size:9px}.color-tools{gap:5px;padding:7px}}
-/* The printed bill is intentionally black and white to match the reference receipt. */
+.panel,.preview{border-radius:14px;background:#fff;box-shadow:0 4px 22px #0000000c;border:1px solid #e3e6ea}.panel{padding:18px}.panel h1{font-size:21px;margin:0 0 7px}.hint{font-size:13px;line-height:1.5;color:#5f6670;margin-bottom:15px}
+label{display:block;font-size:12px;font-weight:700;margin:11px 0 6px}input{width:100%;min-height:39px;padding:9px 10px;border:1px solid #cbd0d7;border-radius:8px;background:#fff;color:#111;font:14px Arial}input:focus{outline:2px solid #bfccff;border-color:#6b83ef}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.btn{border:0;border-radius:8px;min-height:40px;padding:10px 12px;font-size:13px;font-weight:700;cursor:pointer}.primary{background:var(--accent);color:#fff;width:100%;margin-top:10px}.secondary{background:#eceff3;color:#17191c}.actions{display:flex;gap:8px;margin-top:12px}.actions .btn{flex:1}.products-title{font-size:15px;margin:17px 0 5px;padding-top:13px;border-top:1px solid #e4e7eb}
+.product-card{border:1px solid #e0e4e9;border-radius:10px;padding:10px;margin:9px 0}.product-top{display:flex;justify-content:space-between;align-items:center}.product-top b{font-size:12px}.remove{min-height:30px;padding:5px 9px;font-size:12px}.smallnote{font-size:11px;color:#606873;line-height:1.5;margin:12px 0 0}
+.preview{background:#e5e8ed;padding:16px;min-width:0;display:flex;flex-direction:column;align-items:center}.preview-head{width:min(100%,420px);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:11px;font-weight:800;color:#434a54}.paper-select{border:1px solid #c8cdd5;background:#fff;border-radius:7px;padding:7px;font-size:12px}.color-tools{width:min(100%,420px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px;background:#fff;border-radius:10px;margin-bottom:12px}.color-tools label{font-size:10px;margin:0 0 5px}.color-tools input[type=color]{height:32px;min-height:32px;padding:2px;cursor:pointer}
+.receipt{width:min(100%,var(--preview-width,390px));background:var(--paper);color:var(--ink);padding:22px 18px;font-family:"Roboto Mono","Courier New",monospace;box-shadow:0 5px 22px #0002;overflow-wrap:anywhere}.shop{font-family:"Anton","Arial Narrow",sans-serif;font-size:35px;font-weight:400;letter-spacing:.2px;line-height:1.05;text-align:center;text-transform:uppercase;margin:0 0 12px;overflow-wrap:anywhere}.dash{border:0;border-top:2px dashed currentColor;margin:10px 0}.metadata{font-family:"Roboto Mono","Courier New",monospace;font-size:13px;font-weight:700;line-height:1.48}.meta-line{display:flex;gap:8px;align-items:baseline;white-space:nowrap}.meta-line .label{width:84px;flex:0 0 84px}.meta-line .value{flex:1;min-width:0}.meta-bottom{display:flex;justify-content:space-between;gap:8px;align-items:baseline;white-space:nowrap}
+table{width:100%;table-layout:fixed;border-collapse:collapse;font-family:"Roboto Mono","Courier New",monospace;font-size:11px;font-weight:700}th{text-align:left;border-bottom:2px dashed currentColor;padding:6px 1px 7px;white-space:nowrap}td{padding:6px 1px;vertical-align:top;overflow-wrap:anywhere}th:nth-child(1),td:nth-child(1){width:7%}th:nth-child(2),td:nth-child(2){width:30%;padding-left:3px}th:nth-child(3),td:nth-child(3){width:12%;text-align:right}th:nth-child(4),td:nth-child(4){width:22%;text-align:right}th:nth-child(5),td:nth-child(5){width:29%;text-align:right}.totals{font-size:13px;font-weight:700;line-height:1.45}.total-line{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin:4px 0}.total-line span:last-child{text-align:right;white-space:nowrap}.grand{font-family:"Roboto Condensed",Arial,sans-serif;font-size:25px;font-weight:900;line-height:1.05;margin-top:10px;gap:5px}.grand span:first-child{white-space:nowrap}.thanks{font-family:"Roboto Mono","Courier New",monospace;font-size:21px;font-weight:700;line-height:1.5;text-align:center;text-transform:uppercase;margin:13px 0 8px}.tagline{font-family:"Roboto Mono","Courier New",monospace;font-size:12px;font-weight:700;line-height:1.4;text-align:center;margin-top:8px;white-space:nowrap}.footer-note{font-size:11px;color:#5f6670;text-align:center;margin-top:10px}[contenteditable=true]:focus{outline:1px dashed #888;outline-offset:2px}
+@media(max-width:800px){.app{grid-template-columns:1fr;max-width:600px;margin:10px auto;padding:0 9px}.preview{order:1;padding:10px}.panel{order:2;padding:15px}.topbar{padding:14px}.shop{font-size:31px}}@media(max-width:380px){.receipt{padding:17px 10px}.shop{font-size:27px}.metadata{font-size:11px}.meta-line .label{width:70px;flex-basis:70px}table{font-size:9px}.totals{font-size:11px}.grand{font-size:21px}.thanks{font-size:18px}.tagline{font-size:9px}.color-tools{gap:5px;padding:7px}}
 @media print{@page{size:58mm auto;margin:2mm}html,body{margin:0!important;padding:0!important;background:#fff!important;color:#000!important}.topbar,.panel,.preview-head,.color-tools,.footer-note{display:none!important}.app{display:block;margin:0;padding:0;width:100%;max-width:none}.preview{display:block;margin:0;padding:0;background:#fff;border:0;border-radius:0;box-shadow:none}.receipt{width:100%;max-width:none;padding:0;margin:0;background:#fff!important;color:#000!important;box-shadow:none;overflow:visible;font-family:"Roboto Mono","Courier New",monospace}.shop{font-size:24px;line-height:1.05;margin-bottom:8px;color:#000}.dash{border-top:2px dashed #000;margin:8px 0}.metadata{font-size:10px;line-height:1.45}.meta-line .label{width:66px;flex-basis:66px}table{font-size:9px;color:#000}th{padding:5px 0 6px;border-bottom:2px dashed #000}td{padding:5px 0}.totals{font-size:10px;line-height:1.45}.total-line{margin:4px 0}.grand{font-size:20px;margin-top:8px}.thanks{font-size:16px;line-height:1.45;margin:10px 0 6px}.tagline{font-size:9px;margin-top:7px}}
-</style>
-</head>
+</style></head>
 <body>
-<header class="topbar"><div class="brand">SAI KIRANA STORE<small>Exact-style editable thermal receipt</small></div><span>Mobile friendly</span></header>
+<header class="topbar"><div class="brand">SAI KIRANA STORE<small>Editable thermal receipt maker</small></div><span>Mobile friendly</span></header>
 <main class="app">
-<section class="panel">
-<h1>🧾 Receipt editor</h1><div class="hint">The printed receipt follows the reference layout: bold shop name, dashed lines, aligned columns, large grand total, and centered footer. The printout is black and white for thermal printers.</div>
+<section class="panel"><h1>🧾 Receipt editor</h1><div class="hint">Edit the shop details and products. The preview follows your reference receipt and prints in black and white for thermal printers.</div>
 <label for="shopName">Shop name</label><input id="shopName" value="SAI KIRANA STORE" maxlength="60">
 <div class="row"><div><label for="billNo">Bill number</label><input id="billNo" value="00123" maxlength="30"></div><div><label for="cashier">Cashier</label><input id="cashier" value="01" maxlength="20"></div></div>
 <div class="row"><div><label for="billDate">Date</label><input id="billDate" type="date"></div><div><label for="billTime">Time</label><input id="billTime" type="time"></div></div>
@@ -74,37 +34,19 @@ th:nth-child(5),td:nth-child(5){width:29%;text-align:right}
 <label for="thanks">Thank-you message</label><input id="thanks" value="THANK YOU! VISIT AGAIN" maxlength="100">
 <label for="taglineInput">Bottom tagline</label><input id="taglineInput" value="QUALITY PRODUCTS | BETTER PRICES" maxlength="100">
 <div class="actions"><button class="btn secondary" id="add" type="button">＋ Add product</button><button class="btn secondary" id="reset" type="button">Reset sample</button></div>
-<button class="btn primary" id="openBill" type="button">↗ Open print bill in new tab</button><button class="btn primary" id="print" type="button">🖨 Print this page</button>
-<p class="smallnote">Use “Open print bill in new tab” for a clean bill-only page with its own URL and print button. Product names, quantity, and rate are editable below.</p>
-<h2 class="products-title">Products</h2><div id="editRows"></div>
-</section>
-<section class="preview">
-<div class="preview-head"><span>RECEIPT PREVIEW</span><select id="paperWidth" class="paper-select" aria-label="Thermal paper width"><option value="58" selected>58 mm printer</option><option value="80">80 mm printer</option></select></div>
+<button class="btn primary" id="openBill" type="button">↗ Open print bill in new tab</button><button class="btn primary" id="print" type="button">🖨 Print receipt</button>
+<p class="smallnote">The separate bill tab contains only the receipt and a print button. Allow pop-ups if your browser blocks the new tab.</p>
+<h2 class="products-title">Products</h2><div id="editRows"></div></section>
+<section class="preview"><div class="preview-head"><span>RECEIPT PREVIEW</span><select id="paperWidth" class="paper-select" aria-label="Thermal paper width"><option value="58" selected>58 mm printer</option><option value="80">80 mm printer</option></select></div>
 <div class="color-tools"><div><label for="inkColor">Preview text</label><input id="inkColor" type="color" value="#111111"></div><div><label for="paperColor">Preview paper</label><input id="paperColor" type="color" value="#ffffff"></div><div><label for="accentPreview">Buttons</label><input id="accentPreview" type="color" value="#2563eb"></div></div>
-<div class="receipt" id="receipt">
-<div class="shop" id="pShop" contenteditable="true" aria-label="Edit shop name">SAI KIRANA STORE</div><hr class="dash">
-<div class="metadata">
-<div class="meta-line"><span class="label">BILL NO:</span><span class="value" id="pBillNo">00123</span></div>
-<div class="meta-line"><span class="label">DATE</span><span class="value" id="pDate">15-10-2026</span></div>
-<div class="meta-bottom"><span>TIME&nbsp; : &nbsp;<span id="pTime">08:55 AM</span></span><span>CASHIER: <span id="pCashier">01</span></span></div>
-</div><hr class="dash">
-<div class="table-wrap"><table><thead><tr><th>NO</th><th>ITEM</th><th>QTY</th><th>RATE</th><th>AMOUNT</th></tr></thead><tbody id="items"></tbody></table></div>
-<hr class="dash">
-<div class="totals">
-<div class="total-line"><span>SUBTOTAL</span><span id="subtotal">₹9,729.00</span></div>
-<div class="total-line"><span>DISCOUNT</span><span id="pDiscount">₹0.00</span></div>
-<div class="total-line"><span>TOTAL ITEMS: <span id="totalQty">63</span></span><span></span></div>
-<div class="total-line grand"><span>GRAND TOTAL</span><span id="grandTotal">₹9,729.00</span></div>
-</div><hr class="dash">
-<div class="thanks" id="pThanks" contenteditable="true">THANK YOU!<br>VISIT AGAIN</div><hr class="dash">
-<div class="tagline" id="pTagline" contenteditable="true">QUALITY PRODUCTS | BETTER PRICES</div>
-</div>
-<div class="footer-note">For best printing, select the correct thermal printer and paper size.</div>
-</section>
-</main>
+<div class="receipt" id="receipt"><div class="shop" id="pShop" contenteditable="true" aria-label="Edit shop name">SAI KIRANA STORE</div><hr class="dash">
+<div class="metadata"><div class="meta-line"><span class="label">BILL NO:</span><span class="value" id="pBillNo">00123</span></div><div class="meta-line"><span class="label">DATE</span><span class="value" id="pDate">15-10-2026</span></div><div class="meta-bottom"><span>TIME&nbsp; : &nbsp;<span id="pTime">08:55 AM</span></span><span>CASHIER: <span id="pCashier">01</span></span></div></div><hr class="dash">
+<div class="table-wrap"><table><thead><tr><th>NO</th><th>ITEM</th><th>QTY</th><th>RATE</th><th>AMOUNT</th></tr></thead><tbody id="items"></tbody></table></div><hr class="dash">
+<div class="totals"><div class="total-line"><span>SUBTOTAL</span><span id="subtotal">₹9,729.00</span></div><div class="total-line"><span>DISCOUNT</span><span id="pDiscount">₹0.00</span></div><div class="total-line"><span>TOTAL ITEMS: <span id="totalQty">63</span></span><span></span></div><div class="total-line grand"><span>GRAND TOTAL</span><span id="grandTotal">₹9,729.00</span></div></div><hr class="dash">
+<div class="thanks" id="pThanks" contenteditable="true">THANK YOU!<br>VISIT AGAIN</div><hr class="dash"><div class="tagline" id="pTagline" contenteditable="true">QUALITY PRODUCTS | BETTER PRICES</div></div><div class="footer-note">Choose the matching thermal printer width before printing.</div></section></main>
 <script>
 "use strict";
-const sample=[{name:"Rice",qty:2,rate:60},{name:"Toor Dal",qty:1,rate:160},{name:"Sugar",qty:1,rate:45},{name:"Cooking Oil",qty:1,rate:150},{name:"Salt",qty:1,rate:25},{name:"Wheat Flour",qty:2,rate:50},{name:"Tea Powder",qty:1,rate:120},{name:"Milk",qty:2,rate:32},{name:"Biscuits",qty:3,rate:10},{name:"Bath Soap",qty:2,rate:35}];
+const sample=[{name:"American",qty:11,rate:120},{name:"Chams",qty:20,rate:90},{name:"Kings",qty:11,rate:219},{name:"Rrcoin",qty:21,rate:200}];
 let products=sample.map(p=>({...p}));
 const $=id=>document.getElementById(id);
 const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -112,48 +54,17 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 function localDate(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
 function dateFormat(s){if(!s)return "—";const a=s.split("-");return a[2]+"-"+a[1]+"-"+a[0]}
 function timeFormat(s){if(!s)return "—";let [h,m]=s.split(":").map(Number);const ap=h>=12?"PM":"AM";h=h%12||12;return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+" "+ap}
-function renderEditors(){
- const root=$("editRows");root.replaceChildren();
- products.forEach((p,i)=>{const box=document.createElement("div");box.className="product-card";
- box.innerHTML='<div class="product-top"><b>PRODUCT '+(i+1)+'</b><button type="button" class="btn secondary remove" data-remove="'+i+'">Remove</button></div><label>Item name</label><input maxlength="80" data-i="'+i+'" data-k="name" aria-label="Product '+(i+1)+' name"><div class="row"><div><label>Quantity</label><input type="number" min="0" step="any" data-i="'+i+'" data-k="qty" aria-label="Product '+(i+1)+' quantity"></div><div><label>Rate (₹)</label><input type="number" min="0" step="0.01" data-i="'+i+'" data-k="rate" aria-label="Product '+(i+1)+' rate"></div></div>';
- root.appendChild(box);box.querySelector('[data-k="name"]').value=p.name;box.querySelector('[data-k="qty"]').value=p.qty;box.querySelector('[data-k="rate"]').value=p.rate;
- });
- root.querySelectorAll("input").forEach(el=>el.addEventListener("input",e=>{const i=+e.target.dataset.i,k=e.target.dataset.k;if(!products[i])return;products[i][k]=k==="name"?e.target.value:Math.max(0,Number(e.target.value)||0);update()}));
- root.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{products.splice(+b.dataset.remove,1);renderEditors();update()}));
-}
-function applyColors(){document.documentElement.style.setProperty("--ink",$("inkColor").value);document.documentElement.style.setProperty("--paper",$("paperColor").value);document.documentElement.style.setProperty("--accent",$("accentColor").value);$("accentPreview").value=$("accentColor").value}
-function update(){
- $("pShop").textContent=$("shopName").value.trim()||"YOUR SHOP";$("pBillNo").textContent=$("billNo").value||"—";$("pCashier").textContent=$("cashier").value||"—";
- $("pDate").textContent=dateFormat($("billDate").value);$("pTime").textContent=timeFormat($("billTime").value);
- const thanks=($("thanks").value||"THANK YOU! VISIT AGAIN").replace(/\s+VISIT\s+/i,"\nVISIT ");$("pThanks").innerHTML=thanks.split("\n").map(esc).join("<br>");
- $("pTagline").textContent=$("taglineInput").value;
- const tb=$("items");tb.replaceChildren();let sub=0,totalQty=0;
- products.forEach((p,i)=>{if(!String(p.name||"").trim())return;const q=Math.max(0,Number(p.qty)||0),r=Math.max(0,Number(p.rate)||0),a=q*r;sub+=a;totalQty+=q;const tr=document.createElement("tr");[tb.children.length+1,p.name,q,money(r),money(a)].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});tb.appendChild(tr)});
- const discount=Math.min(sub,Math.max(0,Number($("discount").value)||0));$("subtotal").textContent=money(sub);$("pDiscount").textContent=money(discount);$("totalQty").textContent=totalQty.toLocaleString("en-IN",{maximumFractionDigits:3});$("grandTotal").textContent=money(sub-discount);
-}
+function renderEditors(){const root=$("editRows");root.replaceChildren();products.forEach((p,i)=>{const box=document.createElement("div");box.className="product-card";box.innerHTML='<div class="product-top"><b>PRODUCT '+(i+1)+'</b><button type="button" class="btn secondary remove" data-remove="'+i+'">Remove</button></div><label>Item name</label><input maxlength="80" data-i="'+i+'" data-k="name" aria-label="Product '+(i+1)+' name"><div class="row"><div><label>Quantity</label><input type="number" min="0" step="any" data-i="'+i+'" data-k="qty" aria-label="Product '+(i+1)+' quantity"></div><div><label>Rate (₹)</label><input type="number" min="0" step="0.01" data-i="'+i+'" data-k="rate" aria-label="Product '+(i+1)+' rate"></div></div>';root.appendChild(box);box.querySelector('[data-k="name"]').value=p.name;box.querySelector('[data-k="qty"]').value=p.qty;box.querySelector('[data-k="rate"]').value=p.rate});root.querySelectorAll("input").forEach(el=>el.addEventListener("input",e=>{const i=+e.target.dataset.i,k=e.target.dataset.k;if(!products[i])return;products[i][k]=k==="name"?e.target.value:Math.max(0,Number(e.target.value)||0);update()}));root.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{products.splice(+b.dataset.remove,1);renderEditors();update()}))}
+function applyColors(){$("receipt").style.color=$("inkColor").value;$("receipt").style.background=$("paperColor").value;document.documentElement.style.setProperty("--accent",$("accentColor").value);$("accentPreview").value=$("accentColor").value}
+function update(){$("pShop").textContent=$("shopName").value.trim()||"YOUR SHOP";$("pBillNo").textContent=$("billNo").value||"—";$("pCashier").textContent=$("cashier").value||"—";$("pDate").textContent=dateFormat($("billDate").value);$("pTime").textContent=timeFormat($("billTime").value);const thanks=($("thanks").value||"THANK YOU! VISIT AGAIN").replace(/\s+VISIT\s+/i,"\nVISIT ");$("pThanks").innerHTML=thanks.split("\n").map(esc).join("<br>");$("pTagline").textContent=$("taglineInput").value;const tb=$("items");tb.replaceChildren();let sub=0,totalQty=0;products.forEach((p,i)=>{if(!String(p.name||"").trim())return;const q=Math.max(0,Number(p.qty)||0),r=Math.max(0,Number(p.rate)||0),a=q*r;sub+=a;totalQty+=q;const tr=document.createElement("tr");[tb.children.length+1,p.name,q,money(r),money(a)].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});tb.appendChild(tr)});const discount=Math.min(sub,Math.max(0,Number($("discount").value)||0));$("subtotal").textContent=money(sub);$("pDiscount").textContent=money(discount);$("totalQty").textContent=totalQty.toLocaleString("en-IN",{maximumFractionDigits:3});$("grandTotal").textContent=money(sub-discount)}
 ["shopName","billNo","cashier","billDate","billTime","discount","thanks","taglineInput"].forEach(id=>$(id).addEventListener("input",update));
-["inkColor","paperColor"].forEach(id=>$(id).addEventListener("input",applyColors));
-$("accentColor").addEventListener("input",()=>{ $("accentPreview").value=$("accentColor").value;applyColors() });
-$("accentPreview").addEventListener("input",()=>{$("accentColor").value=$("accentPreview").value;applyColors()});
-$("pShop").addEventListener("input",()=>{$("shopName").value=$("pShop").textContent});
-$("pTagline").addEventListener("input",()=>{$("taglineInput").value=$("pTagline").textContent});
-$("pThanks").addEventListener("input",()=>{$("thanks").value=$("pThanks").innerText.replace(/\n/g," ")});
-$("add").addEventListener("click",()=>{if(products.length>=10){alert("You can use up to 10 product rows. Edit the existing rows.");return}products.push({name:"",qty:"",rate:""});renderEditors();update()});
+["inkColor","paperColor"].forEach(id=>$(id).addEventListener("input",applyColors));$("accentColor").addEventListener("input",()=>{$("accentPreview").value=$("accentColor").value;applyColors()});$("accentPreview").addEventListener("input",()=>{$("accentColor").value=$("accentPreview").value;applyColors()});
+$("pShop").addEventListener("input",()=>{$("shopName").value=$("pShop").textContent});$("pTagline").addEventListener("input",()=>{$("taglineInput").value=$("pTagline").textContent});$("pThanks").addEventListener("input",()=>{$("thanks").value=$("pThanks").innerText.replace(/\n/g," ")});
+$("add").addEventListener("click",()=>{if(products.length>=10){alert("Maximum 10 product rows. Remove a row before adding more.");return}products.push({name:"",qty:"",rate:""});renderEditors();update()});
 $("reset").addEventListener("click",()=>{products=sample.map(p=>({...p}));$("shopName").value="SAI KIRANA STORE";$("billNo").value="00123";$("cashier").value="01";$("discount").value="0";$("thanks").value="THANK YOU! VISIT AGAIN";$("taglineInput").value="QUALITY PRODUCTS | BETTER PRICES";$("billDate").value=localDate();const d=new Date();$("billTime").value=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");renderEditors();update()});
-$("paperWidth").addEventListener("change",e=>{$("receipt").style.setProperty("--preview-width",e.target.value==="58"?"270px":"390px");document.getElementById("dynamicPrintPage")?.remove();const s=document.createElement("style");s.id="dynamicPrintPage";s.textContent="@media print{@page{size:"+e.target.value+"mm auto;margin:2mm}}";document.head.appendChild(s)});
-$("print").addEventListener("click",()=>{document.getElementById("dynamicPrintPage")?.remove();const s=document.createElement("style");s.id="dynamicPrintPage";s.textContent="@media print{@page{size:"+$("paperWidth").value+"mm auto;margin:2mm}}";document.head.appendChild(s);window.print()});
-function openBillInNewTab(){
- update();applyColors();
- const receipt=$("receipt").cloneNode(true);receipt.removeAttribute("id");receipt.querySelectorAll("[contenteditable]").forEach(el=>el.removeAttribute("contenteditable"));
- const width=$("paperWidth").value, title=($("shopName").value||"Receipt").replace(/[<>"]/g,"").slice(0,60);
- const printHtml='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+' - Receipt</title><link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:wght@400;500;700&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{margin:0;padding:18px;background:#eef0f3;color:#000;font-family:Arial,sans-serif}.toolbar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 16px}.toolbar button{border:0;border-radius:8px;padding:12px 16px;font-weight:700;background:#2563eb;color:#fff;cursor:pointer}.toolbar .close{background:#e0e3e8;color:#111}.receipt{width:min(100%,'+(width==="58"?"48mm":"72mm")+');margin:0 auto;padding:0;background:#fff!important;color:#000!important;font-family:"Roboto Mono","Courier New",monospace;overflow-wrap:anywhere}.shop{font-family:Anton,"Arial Narrow",sans-serif;font-size:24px;font-weight:400;line-height:1.05;text-align:center;text-transform:uppercase;margin:0 0 8px}.dash{border:0;border-top:2px dashed #000;margin:8px 0}.metadata{font-size:10px;font-weight:700;line-height:1.45}.meta-line{display:flex;gap:6px;align-items:baseline;white-space:nowrap}.meta-line .label{width:66px;flex:0 0 66px}.meta-line .value{flex:1;min-width:0}.meta-bottom{display:flex;justify-content:space-between;gap:5px;align-items:baseline;white-space:nowrap}.table-wrap{width:100%}table{width:100%;table-layout:fixed;border-collapse:collapse;font-family:"Roboto Mono","Courier New",monospace;font-size:9px;font-weight:700}th{text-align:left;border-bottom:2px dashed #000;padding:5px 0 6px;white-space:nowrap}td{padding:5px 0;vertical-align:top;overflow-wrap:anywhere}th:nth-child(1),td:nth-child(1){width:7%}th:nth-child(2),td:nth-child(2){width:30%;padding-left:2px}th:nth-child(3),td:nth-child(3){width:12%;text-align:right}th:nth-child(4),td:nth-child(4){width:22%;text-align:right}th:nth-child(5),td:nth-child(5){width:29%;text-align:right}.totals{font-size:10px;font-weight:700;line-height:1.45}.total-line{display:flex;justify-content:space-between;align-items:baseline;gap:4px;margin:4px 0}.total-line span:last-child{text-align:right;white-space:nowrap}.grand{font-family:"Roboto Condensed",Arial,sans-serif;font-size:20px;font-weight:900;line-height:1.05;margin-top:8px;gap:3px}.grand span:first-child{white-space:nowrap}.thanks{font-size:16px;font-weight:700;line-height:1.45;text-align:center;text-transform:uppercase;margin:10px 0 6px}.tagline{font-family:"Roboto Mono","Courier New",monospace;font-size:9px;font-weight:700;line-height:1.4;text-align:center;margin-top:7px;white-space:nowrap}@media(max-width:360px){body{padding:8px}}@media print{@page{size:'+width+'mm auto;margin:3mm}body{padding:0;background:#fff}.toolbar{display:none}.receipt{width:100%;max-width:none;padding:0;margin:0}.shop{font-size:24px}}</style></head><body><div class="toolbar"><button onclick="window.print()">🖨 Print / Save PDF</button><button class="close" onclick="window.close()">Close bill tab</button></div>'+receipt.outerHTML+'</body></html>';
- const blobUrl=URL.createObjectURL(new Blob([printHtml],{type:"text/html"}));const tab=window.open(blobUrl,"_blank");
- if(!tab){alert("Pop-up blocked. Allow pop-ups for this website, then try again.");URL.revokeObjectURL(blobUrl);return}
- setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);
-}
+$("paperWidth").addEventListener("change",e=>{$("receipt").style.setProperty("--preview-width",e.target.value==="58"?"270px":"390px");$("dynamicPrintPage")?.remove();const s=document.createElement("style");s.id="dynamicPrintPage";s.textContent="@media print{@page{size:"+e.target.value+"mm auto;margin:2mm}}";document.head.appendChild(s)});
+$("print").addEventListener("click",()=>{const width=$("paperWidth").value;$("dynamicPrintPage")?.remove();const s=document.createElement("style");s.id="dynamicPrintPage";s.textContent="@media print{@page{size:"+width+"mm auto;margin:2mm}}";document.head.appendChild(s);window.print()});
+function openBillInNewTab(){update();const receipt=$("receipt").cloneNode(true);receipt.removeAttribute("id");receipt.querySelectorAll("[contenteditable]").forEach(el=>el.removeAttribute("contenteditable"));const width=$("paperWidth").value,title=($("shopName").value||"Receipt").replace(/[<>"]/g,"").slice(0,60);const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+' - Receipt</title><link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:wght@400;500;700&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{margin:0;padding:18px;background:#eef0f3;color:#000;font-family:Arial,sans-serif}.toolbar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 16px}.toolbar button{border:0;border-radius:8px;padding:12px 16px;font-weight:700;background:#2563eb;color:#fff;cursor:pointer}.toolbar .close{background:#e0e3e8;color:#111}.receipt{width:min(100%,'+(width==="58"?"48mm":"72mm")+');margin:0 auto;padding:0;background:#fff!important;color:#000!important;font-family:"Roboto Mono","Courier New",monospace;overflow-wrap:anywhere}.shop{font-family:Anton,"Arial Narrow",sans-serif;font-size:24px;line-height:1.05;text-align:center;text-transform:uppercase;margin:0 0 8px}.dash{border:0;border-top:2px dashed #000;margin:8px 0}.metadata{font-size:10px;font-weight:700;line-height:1.45}.meta-line{display:flex;gap:6px;align-items:baseline;white-space:nowrap}.meta-line .label{width:66px;flex:0 0 66px}.meta-line .value{flex:1;min-width:0}.meta-bottom{display:flex;justify-content:space-between;gap:5px;align-items:baseline;white-space:nowrap}table{width:100%;table-layout:fixed;border-collapse:collapse;font-family:"Roboto Mono","Courier New",monospace;font-size:9px;font-weight:700}th{text-align:left;border-bottom:2px dashed #000;padding:5px 0 6px;white-space:nowrap}td{padding:5px 0;vertical-align:top;overflow-wrap:anywhere}th:nth-child(1),td:nth-child(1){width:7%}th:nth-child(2),td:nth-child(2){width:30%;padding-left:2px}th:nth-child(3),td:nth-child(3){width:12%;text-align:right}th:nth-child(4),td:nth-child(4){width:22%;text-align:right}th:nth-child(5),td:nth-child(5){width:29%;text-align:right}.totals{font-size:10px;font-weight:700;line-height:1.45}.total-line{display:flex;justify-content:space-between;align-items:baseline;gap:4px;margin:4px 0}.total-line span:last-child{text-align:right;white-space:nowrap}.grand{font-family:"Roboto Condensed",Arial,sans-serif;font-size:20px;font-weight:900;line-height:1.05;margin-top:8px;gap:3px}.grand span:first-child{white-space:nowrap}.thanks{font-size:16px;font-weight:700;line-height:1.45;text-align:center;text-transform:uppercase;margin:10px 0 6px}.tagline{font-family:"Roboto Mono","Courier New",monospace;font-size:9px;font-weight:700;line-height:1.4;text-align:center;margin-top:7px;white-space:nowrap}@media(max-width:360px){body{padding:8px}}@media print{@page{size:'+width+'mm auto;margin:3mm}body{padding:0;background:#fff}.toolbar{display:none}.receipt{width:100%;max-width:none;padding:0;margin:0}.shop{font-size:24px}}</style></head><body><div class="toolbar"><button onclick="window.print()">🖨 Print / Save PDF</button><button class="close" onclick="window.close()">Close bill tab</button></div>'+receipt.outerHTML+'</body></html>';const url=URL.createObjectURL(new Blob([html],{type:"text/html"}));const tab=window.open(url,"_blank");if(!tab){alert("Pop-up blocked. Allow pop-ups for this website, then try again.");URL.revokeObjectURL(url);return}setTimeout(()=>URL.revokeObjectURL(url),60000)}
 $("openBill").addEventListener("click",openBillInNewTab);
-function init(){const d=new Date();$("billDate").value=localDate();$("billTime").value=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");renderEditors();update();applyColors()}
-init();
-</script>
-</body>
-</html>
+function init(){const d=new Date();$("billDate").value="2026-10-15";$("billTime").value="08:55";renderEditors();update();applyColors()}init();
+</script></body></html>
