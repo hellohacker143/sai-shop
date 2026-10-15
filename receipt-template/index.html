@@ -104,7 +104,7 @@ th:nth-child(5),td:nth-child(5){width:29%;text-align:right}
 </main>
 <script>
 "use strict";
-const sample=[{name:"American",qty:11,rate:120},{name:"Chams",qty:20,rate:90},{name:"Kings",qty:11,rate:219},{name:"Rrcoin",qty:21,rate:200}];
+const sample=[{name:"American",qty:11,rate:120},{name:"Chams",qty:20,rate:90},{name:"Kings",qty:11,rate:219},{name:"Rrcoin",qty:21,rate:200}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}];
 let products=sample.map(p=>({...p}));
 const $=id=>document.getElementById(id);
 const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -128,7 +128,7 @@ function update(){
  const thanks=($("thanks").value||"THANK YOU! VISIT AGAIN").replace(/\s+VISIT\s+/i,"\nVISIT ");$("pThanks").innerHTML=thanks.split("\n").map(esc).join("<br>");
  $("pTagline").textContent=$("taglineInput").value;
  const tb=$("items");tb.replaceChildren();let sub=0,totalQty=0;
- products.forEach((p,i)=>{const q=Math.max(0,Number(p.qty)||0),r=Math.max(0,Number(p.rate)||0),a=q*r;sub+=a;totalQty+=q;const tr=document.createElement("tr");[i+1,p.name||"—",q,money(r),money(a)].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});tb.appendChild(tr)});
+ products.forEach((p,i)=>{if(!String(p.name||"").trim())return;const q=Math.max(0,Number(p.qty)||0),r=Math.max(0,Number(p.rate)||0),a=q*r;sub+=a;totalQty+=q;const tr=document.createElement("tr");[tb.children.length+1,p.name,q,money(r),money(a)].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});tb.appendChild(tr)});
  const discount=Math.min(sub,Math.max(0,Number($("discount").value)||0));$("subtotal").textContent=money(sub);$("pDiscount").textContent=money(discount);$("totalQty").textContent=totalQty.toLocaleString("en-IN",{maximumFractionDigits:3});$("grandTotal").textContent=money(sub-discount);
 }
 ["shopName","billNo","cashier","billDate","billTime","discount","thanks","taglineInput"].forEach(id=>$(id).addEventListener("input",update));
@@ -138,7 +138,7 @@ $("accentPreview").addEventListener("input",()=>{$("accentColor").value=$("accen
 $("pShop").addEventListener("input",()=>{$("shopName").value=$("pShop").textContent});
 $("pTagline").addEventListener("input",()=>{$("taglineInput").value=$("pTagline").textContent});
 $("pThanks").addEventListener("input",()=>{$("thanks").value=$("pThanks").innerText.replace(/\n/g," ")});
-$("add").addEventListener("click",()=>{products.push({name:"New Product",qty:1,rate:0});renderEditors();update()});
+$("add").addEventListener("click",()=>{if(products.length>=10){alert("You can use up to 10 product rows. Edit the existing rows.");return}products.push({name:"",qty:"",rate:""});renderEditors();update()});
 $("reset").addEventListener("click",()=>{products=sample.map(p=>({...p}));$("shopName").value="SAI KIRANA STORE";$("billNo").value="00123";$("cashier").value="01";$("discount").value="0";$("thanks").value="THANK YOU! VISIT AGAIN";$("taglineInput").value="QUALITY PRODUCTS | BETTER PRICES";$("billDate").value=localDate();const d=new Date();$("billTime").value=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");renderEditors();update()});
 $("paperWidth").addEventListener("change",e=>{$("receipt").style.setProperty("--preview-width",e.target.value==="58"?"270px":"390px")});
 $("print").addEventListener("click",()=>window.print());
