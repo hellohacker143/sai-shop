@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:wght@400;500;700&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#111;--paper:#fff;--bg:#f1f2f4;--line:#d9dce1;--muted:#606873}
+:root{--ink:#111;--paper:#fff;--bg:#f1f2f4;--line:#d9dce1;--muted:#606873;--accent:#2563eb}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:#17191c;font-family:Arial,sans-serif}
 .topbar{background:#111;color:#fff;padding:17px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -23,14 +23,14 @@ input:focus{outline:2px solid #c7d2fe;border-color:#6d7cff}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .btn{border:0;border-radius:9px;padding:11px 13px;cursor:pointer;font-weight:700;font-size:13px;min-height:40px}
 .btn:focus-visible{outline:3px solid #9bb5ff;outline-offset:2px}
-.primary{background:#111;color:#fff;width:100%;margin-top:12px}.secondary{background:#eceef1;color:#17191c}.secondary:hover{background:#e0e3e7}
+.primary{background:var(--accent);color:#fff;width:100%;margin-top:12px}.secondary{background:#eceef1;color:#17191c}.secondary:hover{background:#e0e3e7}
 .actions{display:flex;gap:8px;margin:10px 0}.actions .btn{flex:1}
 .products-title{font-size:15px;margin:18px 0 6px;padding-top:14px;border-top:1px solid #e5e7eb}
 .product-card{border:1px solid #e0e3e7;padding:11px;border-radius:11px;margin:10px 0}
 .product-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.product-top b{font-size:12px;letter-spacing:.4px}.remove{padding:6px 9px;min-height:30px;font-size:12px}
 .smallnote{font-size:11px;color:var(--muted);line-height:1.5;margin-top:12px}
 .preview{min-width:0;background:#e6e8eb;padding:18px;display:flex;flex-direction:column;align-items:center}
-.preview-head{width:min(100%,460px);display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;color:#414853;font-size:12px;font-weight:700;letter-spacing:.4px}
+.preview-head{width:min(100%,460px);display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;color:#414853;font-size:12px;font-weight:700;letter-spacing:.4px;flex-wrap:wrap}.color-tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:460px;background:#fff;padding:10px;border-radius:10px;margin-bottom:12px}.color-tools label{margin:0;font-size:11px}.color-tools input[type=color]{padding:3px;height:35px;min-height:35px;cursor:pointer}
 .paper-select{padding:7px;border:1px solid #c7cbd0;border-radius:7px;background:#fff;font-size:12px}
 .receipt{--paper-width:390px;background:var(--paper);color:var(--ink);width:min(100%,var(--paper-width));padding:25px 22px;font-family:"Roboto Mono","Courier New",monospace;box-shadow:0 7px 28px #00000018;overflow-wrap:anywhere}
 .shop{font-family:"Anton","Arial Narrow",sans-serif;font-size:35px;font-weight:400;letter-spacing:.2px;line-height:1.08;text-align:center;text-transform:uppercase;margin:0 0 13px;overflow-wrap:anywhere}
@@ -59,7 +59,7 @@ th:nth-child(5),td:nth-child(5){width:29%;text-align:right}
 @media print{
  @page{size:80mm auto;margin:3mm}
  html,body{width:100%;margin:0!important;padding:0!important;background:#fff!important}
- .topbar,.panel,.preview-head,.footer-note{display:none!important}
+ .topbar,.panel,.preview-head,.color-tools,.footer-note{display:none!important}
  .app{display:block;margin:0;padding:0;max-width:none;width:100%}
  .preview{display:block;margin:0;padding:0;background:#fff;border:0;border-radius:0;box-shadow:none}
  .receipt{width:100%;max-width:none;padding:0;margin:0;box-shadow:none;overflow:visible}
@@ -82,16 +82,16 @@ th:nth-child(5),td:nth-child(5){width:29%;text-align:right}
 <label for="shopName">Shop name</label><input id="shopName" value="SAI KIRANA STORE" maxlength="60">
 <div class="row"><div><label for="billNo">Bill number</label><input id="billNo" value="00123" maxlength="30"></div><div><label for="cashier">Cashier</label><input id="cashier" value="01" maxlength="20"></div></div>
 <div class="row"><div><label for="billDate">Date</label><input id="billDate" type="date"></div><div><label for="billTime">Time</label><input id="billTime" type="time"></div></div>
-<label for="discount">Discount (₹)</label><input id="discount" type="number" min="0" step="0.01" value="0">
+<label for="discount">Discount (₹)</label><input id="discount" type="number" min="0" step="0.01" value="0">\n<label for="accentColor">Button / accent colour</label><input id="accentColor" type="color" value="#2563eb">
 <label for="thanks">Thank-you message</label><input id="thanks" value="THANK YOU! VISIT AGAIN" maxlength="100">
 <label for="taglineInput">Bottom tagline</label><input id="taglineInput" value="QUALITY PRODUCTS | BETTER PRICES" maxlength="100">
 <div class="actions"><button class="btn secondary" id="add" type="button">＋ Add product</button><button class="btn secondary" id="reset" type="button">Reset sample</button></div>
-<button class="btn primary" id="print" type="button">🖨 Print / Save PDF</button>
+<button class="btn primary" id="openBill" type="button">↗ Open bill in new tab</button><button class="btn primary" id="print" type="button">🖨 Print / Save PDF here</button>
 <p class="smallnote">Edit each product below. The preview updates automatically. You can also tap the shop name or footer text in the receipt to edit it directly.</p>
 <h2 class="products-title">Products</h2><div id="editRows"></div>
 </section>
 <section class="preview" aria-label="Live receipt preview">
-<div class="preview-head"><span>LIVE PREVIEW · THERMAL RECEIPT</span><select id="paperWidth" class="paper-select" aria-label="Receipt paper width"><option value="58">58 mm</option><option value="80" selected>80 mm</option></select></div>
+<div class="preview-head"><span>LIVE PREVIEW · THERMAL RECEIPT</span><select id="paperWidth" class="paper-select" aria-label="Receipt paper width"><option value="58">58 mm</option><option value="80" selected>80 mm</option></select></div>\n<div class="color-tools"><div><label for="inkColor">Receipt text colour</label><input id="inkColor" type="color" value="#111111" aria-label="Receipt text colour"></div><div><label for="paperColor">Receipt paper colour</label><input id="paperColor" type="color" value="#ffffff" aria-label="Receipt paper colour"></div></div>
 <div class="receipt" id="receipt">
 <div class="shop" id="pShop" contenteditable="true" title="Tap to edit shop name" aria-label="Shop name">SAI KIRANA STORE</div>
 <hr class="dash">
@@ -176,7 +176,7 @@ function update(){
  $("totalQty").textContent=totalQty.toLocaleString("en-IN",{maximumFractionDigits:3});
  $("grandTotal").textContent=money(grand);
 }
-["shopName","billNo","cashier","billDate","billTime","discount","thanks","taglineInput"].forEach(id=>$(id).addEventListener("input",update));
+["shopName","billNo","cashier","billDate","billTime","discount","thanks","taglineInput"].forEach(id=>$(id).addEventListener("input",update));\nfunction applyColors(){document.documentElement.style.setProperty("--ink", $("inkColor").value);document.documentElement.style.setProperty("--paper", $("paperColor").value);document.documentElement.style.setProperty("--accent", $("accentColor").value);}\n["inkColor","paperColor","accentColor"].forEach(id=>$(id).addEventListener("input",applyColors));
 $("pShop").addEventListener("input",()=>{$("shopName").value=$("pShop").textContent;});
 $("pTagline").addEventListener("input",()=>{$("taglineInput").value=$("pTagline").textContent;});
 $("pThanks").addEventListener("input",()=>{$("thanks").value=$("pThanks").innerText.replace(/\n/g," ");});
@@ -196,7 +196,20 @@ $("paperWidth").addEventListener("change",e=>{
  document.documentElement.style.setProperty("--print-paper",width+"mm");
 });
 $("print").addEventListener("click",()=>window.print());
-init();
+function openBillInNewTab(){
+ update(); applyColors();
+ const receipt=$("receipt").cloneNode(true);receipt.removeAttribute("id");
+ receipt.querySelectorAll("[contenteditable]").forEach(el=>el.removeAttribute("contenteditable"));
+ const width=$("paperWidth").value, ink=$("inkColor").value, paper=$("paperColor").value;
+ const title=($("shopName").value||"Receipt").replace(/[<>"]/g,"").slice(0,60);
+ const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escapeText(title)+' - Bill</title><link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:wght@400;500;700&family=Roboto+Condensed:wght@700;900&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{margin:0;padding:18px;background:#edf0f4;color:#111;font-family:Arial,sans-serif}.toolbar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 16px}.toolbar button{border:0;border-radius:8px;padding:12px 16px;font-weight:700;background:#2563eb;color:white;cursor:pointer}.toolbar .back{background:#e0e4eb;color:#111}.receipt{background:'+paper+';color:'+ink+';width:min(100%,'+(width==="58"?"300px":"390px")+');margin:0 auto;padding:22px;font-family:"Roboto Mono","Courier New",monospace;box-shadow:0 5px 24px #0002;overflow-wrap:anywhere}.shop{font-family:Anton,"Arial Narrow",sans-serif;font-size:35px;font-weight:400;line-height:1.08;text-align:center;text-transform:uppercase;margin:0 0 13px}.dash{border:0;border-top:3px dashed '+ink+';margin:12px 0}.metadata{display:grid;grid-template-columns:auto 1fr;gap:5px 9px;font-size:13px;font-weight:700}.meta-value{text-align:left}.cashier{grid-column:1/-1;display:flex;justify-content:space-between;gap:8px}.table-wrap{width:100%;overflow:hidden}table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;font-weight:700}th{text-align:left;padding:7px 1px;border-bottom:2px dashed '+ink+';vertical-align:bottom}td{padding:7px 1px;vertical-align:top;overflow-wrap:anywhere}th:nth-child(1),td:nth-child(1){width:7%}th:nth-child(2),td:nth-child(2){width:31%;padding-left:4px}th:nth-child(3),td:nth-child(3){width:12%;text-align:right}th:nth-child(4),td:nth-child(4){width:21%;text-align:right}th:nth-child(5),td:nth-child(5){width:29%;text-align:right}.totals{font-size:13px;font-weight:700}.total-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:7px 0}.total-line span:last-child{white-space:nowrap;text-align:right}.grand{font-family:"Roboto Condensed",Arial,sans-serif;font-size:25px;font-weight:900;line-height:1.05;gap:5px;margin-top:12px}.grand span:first-child{white-space:nowrap}.thanks{text-align:center;font-size:21px;font-weight:700;line-height:1.5;margin:16px 0 8px;text-transform:uppercase}.tagline{text-align:center;font-size:12px;font-weight:700;line-height:1.4;margin-top:10px}@media(max-width:400px){body{padding:8px}.receipt{padding:14px}.shop{font-size:27px}.metadata{font-size:11px}.grand{font-size:21px}table{font-size:9px}.totals{font-size:11px}.thanks{font-size:18px}.tagline{font-size:10px}}@media print{@page{size:'+width+'mm auto;margin:3mm}body{padding:0;background:#fff}.toolbar{display:none}.receipt{width:100%;max-width:none;padding:0;box-shadow:none}.shop{font-size:24px}.dash{border-top-width:2px;margin:8px 0}.metadata{font-size:10px}table{font-size:9px}th,td{padding:5px 0}.totals{font-size:10px}.total-line{margin:5px 0}.grand{font-size:20px}.thanks{font-size:16px;margin:11px 0 7px}.tagline{font-size:9px}}</style></head><body><div class="toolbar"><button onclick="window.print()">🖨 Print / Save PDF</button><button class="back" onclick="window.close()">Close bill tab</button></div>'+receipt.outerHTML+'</body></html>';
+ const url=URL.createObjectURL(new Blob([html],{type:"text/html"}));
+ const tab=window.open(url,"_blank");
+ if(!tab){alert("Your browser blocked the new tab. Allow pop-ups for this site and try again.");URL.revokeObjectURL(url);return;}
+ setTimeout(()=>URL.revokeObjectURL(url),60000);
+}
+$("openBill").addEventListener("click",openBillInNewTab);
+init();applyColors();
 </script>
 </body>
 </html>
