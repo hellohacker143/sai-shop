@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editable Receipt Template</title>
+<style>
+:root{--ink:#111;--paper:#fff;--ui:#f3f4f6;--accent:#111}
+*{box-sizing:border-box}body{margin:0;background:#eef0f3;color:#202124;font-family:Arial,sans-serif}
+.app{max-width:1100px;margin:24px auto;padding:16px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px}
+.panel,.preview{background:#fff;border-radius:16px;box-shadow:0 5px 25px #0000000c;padding:20px}
+h1{font-size:21px;margin:0 0 8px}.hint{font-size:13px;color:#6b7280;line-height:1.5;margin-bottom:20px}
+label{display:block;font-size:12px;font-weight:700;margin:13px 0 6px}
+input,textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font:14px Arial;background:#fff}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+button{border:0;border-radius:8px;padding:11px 13px;cursor:pointer;font-weight:700}
+.primary{background:#111;color:#fff;width:100%;margin-top:12px}.secondary{background:#e5e7eb;color:#111}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.actions button{flex:1;min-width:100px}
+.preview{min-width:0;background:#e5e7eb;display:flex;flex-direction:column;align-items:center}
+.preview-title{align-self:flex-start;font-size:13px;font-weight:700;margin:0 0 12px;color:#4b5563}
+.receipt{background:var(--paper);color:var(--ink);width:min(100%,420px);padding:25px 22px;font-family:"Courier New",monospace;box-shadow:0 6px 24px #00000018;overflow-wrap:anywhere}
+.shop{font-size:28px;text-align:center;font-weight:900;line-height:1.05;letter-spacing:-1px;text-transform:uppercase;margin:0 0 13px;outline:none}
+.dash{border:0;border-top:3px dashed #111;margin:12px 0}
+.metadata{display:grid;grid-template-columns:1fr auto;gap:5px 10px;font-size:13px;font-weight:bold}
+table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}th{text-align:left;padding:6px 0;border-bottom:2px dashed #111}td{padding:7px 0;vertical-align:top;word-break:break-word}
+th:first-child,td:first-child{width:8%}th:nth-child(2),td:nth-child(2){width:37%}th:nth-child(3),td:nth-child(3){width:13%;text-align:right}th:nth-child(4),td:nth-child(4){width:18%;text-align:right}th:last-child,td:last-child{width:24%;text-align:right}
+.totals{font-size:13px;font-weight:bold}.total-line{display:flex;justify-content:space-between;gap:10px;margin:6px 0}.grand{font-size:23px;font-weight:900;align-items:baseline;margin-top:10px}
+.thanks{text-align:center;font-size:20px;font-weight:bold;line-height:1.5;margin:16px 0 8px}
+.tagline{text-align:center;font-size:12px;font-weight:bold;margin-top:10px}
+[contenteditable=true]:focus{outline:1px dashed #9ca3af;outline-offset:2px}
+.smallnote{font-size:11px;color:#6b7280;margin-top:12px}
+@media(max-width:760px){.app{grid-template-columns:1fr;margin:0 auto;padding:10px}.panel{order:1}.preview{order:2;padding:12px}.receipt{padding:22px 17px}.shop{font-size:25px}}
+@media print{
+ @page{size:80mm auto;margin:3mm}
+ body{background:#fff;margin:0}.app{display:block;margin:0;padding:0;max-width:none}.panel,.preview-title,.actions{display:none!important}.preview{display:block;background:#fff;padding:0;box-shadow:none}.receipt{width:100%;max-width:none;padding:0;box-shadow:none;margin:0;font-size:11px}.shop{font-size:21px}.metadata,table,.totals{font-size:10px}.grand{font-size:19px}.thanks{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<section class="panel">
+<h1>🧾 Receipt Template Editor</h1>
+<div class="hint">Edit your shop name and bill details. Add or remove any product, change quantity and rate, then print on a thermal printer or save as PDF.</div>
+<label>Shop name</label><input id="shopName" value="SAI KIRANA STORE">
+<div class="row"><div><label>Bill number</label><input id="billNo" value="00123"></div><div><label>Cashier</label><input id="cashier" value="01"></div></div>
+<label>Date</label><input id="billDate" type="date">
+<label>Time</label><input id="billTime" type="time">
+<label>Discount (₹)</label><input id="discount" type="number" min="0" step="0.01" value="0">
+<label>Thank-you message</label><input id="thanks" value="THANK YOU! VISIT AGAIN">
+<label>Bottom tagline</label><input id="tagline" value="QUALITY PRODUCTS | BETTER PRICES">
+<div class="actions"><button class="secondary" id="add">＋ Add product</button><button class="secondary" id="reset">Reset sample</button></div>
+<button class="primary" id="print">🖨️ Print / Save PDF</button>
+<div class="smallnote">Tip: Tap text in the receipt preview to edit it directly. Product names, quantities and rates can be changed in the rows below.</div>
+<div id="editRows"></div>
+</section>
+<section class="preview">
+<div class="preview-title">LIVE PREVIEW · 80 mm THERMAL RECEIPT</div>
+<div class="receipt" id="receipt">
+<div class="shop" id="pShop" contenteditable="true" title="Tap to edit shop name">SAI KIRANA STORE</div>
+<hr class="dash">
+<div class="metadata">
+<span>BILL NO:</span><span id="pBillNo">00123</span>
+<span>DATE:</span><span id="pDate"></span>
+<span>TIME:</span><span id="pTime"></span>
+<span>CASHIER:</span><span id="pCashier">01</span>
+</div>
+<hr class="dash">
+<table><thead><tr><th>NO</th><th>ITEM</th><th>QTY</th><th>RATE</th><th>AMOUNT</th></tr></thead><tbody id="items"></tbody></table>
+<hr class="dash">
+<div class="totals">
+<div class="total-line"><span>SUBTOTAL</span><span id="subtotal">₹0.00</span></div>
+<div class="total-line"><span>DISCOUNT</span><span id="pDiscount">₹0.00</span></div>
+<div class="total-line"><span>TOTAL ITEMS:</span><span id="totalQty">0</span></div>
+<div class="total-line grand"><span>GRAND TOTAL</span><span id="grandTotal">₹0.00</span></div>
+</div>
+<hr class="dash">
+<div class="thanks" id="pThanks" contenteditable="true">THANK YOU!<br>VISIT AGAIN</div>
+<hr class="dash">
+<div class="tagline" id="pTagline" contenteditable="true">QUALITY PRODUCTS | BETTER PRICES</div>
+</div>
+</section>
+</div>
+<script>
+const sample=[
+ {name:"American",qty:11,rate:120},
+ {name:"Chams",qty:20,rate:90},
+ {name:"Kings",qty:11,rate:219},
+ {name:"Rrcoin",qty:21,rate:200}
+];
+let products=sample.map(x=>({...x}));
+const $=id=>document.getElementById(id);
+const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+function todayLocal(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
+function init(){ $("billDate").value=todayLocal();const d=new Date();$("billTime").value=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");renderEditors();update()}
+function renderEditors(){
+ const root=$("editRows");root.innerHTML="<hr><h2 style='font-size:16px'>Products</h2>";
+ products.forEach((p,i)=>{
+  const box=document.createElement("div");box.style.cssText="border:1px solid #e5e7eb;padding:10px;border-radius:10px;margin:10px 0";
+  box.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:12px">PRODUCT '+(i+1)+'</b><button type="button" class="secondary" data-remove="'+i+'" style="padding:6px 9px">Remove</button></div><label>Item name</label><input data-i="'+i+'" data-k="name" value=""><div class="row"><div><label>Quantity</label><input type="number" min="0" step="any" data-i="'+i+'" data-k="qty"></div><div><label>Rate (₹)</label><input type="number" min="0" step="0.01" data-i="'+i+'" data-k="rate"></div></div>';
+  root.appendChild(box);box.querySelector('[data-k="name"]').value=p.name;box.querySelector('[data-k="qty"]').value=p.qty;box.querySelector('[data-k="rate"]').value=p.rate;
+ });
+ root.querySelectorAll("input").forEach(el=>el.addEventListener("input",e=>{const i=+e.target.dataset.i,k=e.target.dataset.k;products[i][k]=k==="name"?e.target.value:Number(e.target.value);update()}));
+ root.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{products.splice(+b.dataset.remove,1);renderEditors();update()}));
+}
+function update(){
+ $("pShop").textContent=$("shopName").value||"YOUR SHOP";
+ $("pBillNo").textContent=$("billNo").value||"—";$("pCashier").textContent=$("cashier").value||"—";
+ $("pDate").textContent=$("billDate").value?new Date($("billDate").value+"T00:00:00").toLocaleDateString("en-GB"):"—";
+ $("pTime").textContent=$("billTime").value||"—";
+ $("pThanks").innerHTML=($("thanks").value||"THANK YOU! VISIT AGAIN").split(/\n|\s+VISIT /i).filter(Boolean).map(s=>s.trim()).join("<br>");
+ $("pTagline").textContent=$("tagline").value;
+ const tb=$("items");tb.innerHTML="";let sub=0,totalQty=0;
+ products.forEach((p,i)=>{const q=Number(p.qty)||0,r=Number(p.rate)||0,a=q*r;sub+=a;totalQty+=q;const tr=document.createElement("tr");[i+1,p.name||"—",q,money(r),money(a)].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});tb.appendChild(tr)});
+ const disc=Math.max(0,Number($("discount").value)||0),grand=Math.max(0,sub-disc);
+ $("subtotal").textContent=money(sub);$("pDiscount").textContent=money(disc);$("totalQty").textContent=totalQty.toLocaleString("en-IN");$("grandTotal").textContent=money(grand);
+}
+["shopName","billNo","cashier","billDate","billTime","discount","thanks","tagline"].forEach(id=>$(id).addEventListener("input",update));
+$("pShop").addEventListener("input",()=>{$("shopName").value=$("pShop").textContent});
+$("pTagline").addEventListener("input",()=>{$("tagline").value=$("pTagline").textContent});
+$("add").addEventListener("click",()=>{products.push({name:"New Product",qty:1,rate:0});renderEditors();update()});
+$("reset").addEventListener("click",()=>{products=sample.map(x=>({...x}));$("shopName").value="SAI KIRANA STORE";$("billNo").value="00123";$("cashier").value="01";$("discount").value="0";$("thanks").value="THANK YOU! VISIT AGAIN";$("tagline").value="QUALITY PRODUCTS | BETTER PRICES";renderEditors();update()});
+$("print").addEventListener("click",()=>window.print());
+init();
+</script>
+</body>
+</html>
