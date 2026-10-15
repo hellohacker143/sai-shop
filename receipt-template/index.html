@@ -104,7 +104,7 @@ th:nth-child(5),td:nth-child(5){width:29%;text-align:right}
 </main>
 <script>
 "use strict";
-const sample=[{name:"American",qty:11,rate:120},{name:"Chams",qty:20,rate:90},{name:"Kings",qty:11,rate:219},{name:"Rrcoin",qty:21,rate:200}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}, {name:"",qty:"",rate:""}];
+const sample=[{name:"Rice",qty:2,rate:60},{name:"Toor Dal",qty:1,rate:160},{name:"Sugar",qty:1,rate:45},{name:"Cooking Oil",qty:1,rate:150},{name:"Salt",qty:1,rate:25},{name:"Wheat Flour",qty:2,rate:50},{name:"Tea Powder",qty:1,rate:120},{name:"Milk",qty:2,rate:32},{name:"Biscuits",qty:3,rate:10},{name:"Bath Soap",qty:2,rate:35}];
 let products=sample.map(p=>({...p}));
 const $=id=>document.getElementById(id);
 const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
